@@ -14,21 +14,35 @@ import java.util.Scanner;
 public class Hangman {
     static ArrayList<String> listOfWords = new ArrayList<>();
     public static void  getListOfWords(){
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(new File("inputWords.txt"));
+            scanner = new Scanner(new File("inputWords.txt"));
             while(scanner.hasNext()){
                 String word = scanner.next();
                 listOfWords.add(word);
             }
-            System.out.println(listOfWords.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("File not Found!");
         }
+        if(scanner!=null) {scanner.close();}
     }
 
     public static void main(String[] args){
+
+        // Greet user
+        System.out.println("Let's Play Wordguess version 1.0\n");
+
+        // Read in all words from input file
         getListOfWords();
-        System.out.println("hi");
+
+        // Initialize a new Game;
+        Game game = new Game(listOfWords);
+
+        // Play game
+        game.play();
+
+        // Exit the program
+        System.out.println("Good bye!");
     }
 }
